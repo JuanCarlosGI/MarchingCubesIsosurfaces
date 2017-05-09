@@ -12,25 +12,29 @@ using namespace std;
 void paintTriangle(TRIANGLE triangle);
 void renderScene();
 
-double width = 1;
-double height = 1;
-double depth = 1;
-double gridSize = 3;
-double values[3][3][3] = { { { 0, 0, 0 },{ 0, 1, 0 },{ 0, 0, 0 } },{ { 1, 1, 1 },{ 1, 1, 1 },{ 1, 1, 1 } },{ { 0, 0, 0 },{ 0, 1, 0 },{ 0, 0, 0 } } };
-//double values[3][3][3] = { { { 1, 1, 1 },{ 0, 0, 0 },{ 0, 0, 0 } },{ { 0, 0, 0 },{ 0, 0, 0 },{ 0, 0, 0 } },{ { 0, 0, 0 },{ 0, 0, 0 },{ 0, 0, 0 } } };
-XYZ points[3][3][3];
+double const width = 1;
+double const height = 1;
+double const depth = 1;
+double const gridSize = 30;
+double values[30][30][30];
+XYZ points[30][30][30];
+double const isosurfaceValue = 30;
 
 int main(int argc, char **argv)
 {
-	// Initialize XYZ for each point.
-	for (int x = 0; x <= 2; x++) {
-		for (int y = 0; y <= 2; y++) {
-			for (int z = 0; z <= 2; z++) {
+	// Initialize XYZ and value for each point.
+	for (int x = 0; x < gridSize; x++) {
+		for (int y = 0; y <= gridSize; y++) {
+			for (int z = 0; z <= gridSize; z++) {
+				//	Initialize XYZ
 				XYZ p;
 				p.x = x * width / gridSize;
 				p.y = y * height / gridSize;
 				p.z = z * depth / gridSize;
 				points[x][y][z] = p;
+
+				// Set value.
+				values[x][y][z] = x+y;
 			}
 		}
 	}
@@ -66,9 +70,9 @@ void renderScene() {
 
 	// Get triangles and paint them
 	Poligonizer poli;
-	for (int x = 0; x < 2; x++) {
-		for (int y = 0; y < 2; y++) {
-			for (int z = 0; z < 2; z++) {
+	for (int x = 0; x < gridSize; x++) {
+		for (int y = 0; y < gridSize; y++) {
+			for (int z = 0; z < gridSize; z++) {
 				TRIANGLE triangles[5];
 				GRIDCELL cell;
 				cell.p[0] = points[x][y][z];
@@ -89,7 +93,7 @@ void renderScene() {
 				cell.val[6] = values[x + 1][y + 1][z + 1];
 				cell.val[7] = values[x + 1][y][z + 1];
 
-				int amount = poli.Polygonize(cell, 0.5, triangles);
+				int amount = poli.Polygonize(cell, isosurfaceValue, triangles);
 
 				for (int ntriangle = 0; ntriangle < amount; ntriangle++)
 				{
