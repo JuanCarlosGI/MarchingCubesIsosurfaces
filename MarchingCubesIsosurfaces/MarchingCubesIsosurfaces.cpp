@@ -15,9 +15,9 @@ void renderScene();
 double const width = 1;
 double const height = 1;
 double const depth = 1;
-double const gridSize = 30;
-double values[30][30][30];
-XYZ points[30][30][30];
+double const gridSize = 50;
+double values[50][50][50];
+XYZ points[50][50][50];
 double const isosurfaceValue = 30;
 
 int main(int argc, char **argv)
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 				points[x][y][z] = p;
 
 				// Set value.
-				values[x][y][z] = x+y;
+				values[x][y][z] = x*y;
 			}
 		}
 	}
@@ -110,7 +110,13 @@ void renderScene() {
 
 void paintTriangle(TRIANGLE triangle)
 {
+	GLfloat x2, y2, z2;
+	x2 = (triangle.p[0].x + triangle.p[1].x + triangle.p[2].x) / 3.0 / width;
+	y2 = (triangle.p[0].y + triangle.p[1].y + triangle.p[2].y) / 3.0 / height;
+	z2 = (triangle.p[0].z + triangle.p[1].z + triangle.p[2].z) / 3.0 / depth;
+
 	glBegin(GL_TRIANGLES);
+	glColor3f(x2, y2, z2);
 	glVertex3f(triangle.p[0].x - width / 2, triangle.p[0].y - height / 2, triangle.p[0].z - depth / 2);
 	glVertex3f(triangle.p[1].x - width / 2, triangle.p[1].y - height / 2, triangle.p[1].z - depth / 2);
 	glVertex3f(triangle.p[2].x - width / 2, triangle.p[2].y - height / 2, triangle.p[2].z - depth / 2);
