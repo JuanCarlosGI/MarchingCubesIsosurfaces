@@ -11,6 +11,7 @@ using namespace std;
 
 void paintTriangle(TRIANGLE triangle);
 void renderScene();
+void processSpecialKeys(int key, int x, int y);
 
 double const width = 1;
 double const height = 1;
@@ -48,12 +49,14 @@ int main(int argc, char **argv)
 	// register callbacks
 	glutDisplayFunc(renderScene);
 	glutIdleFunc(renderScene);
+	glutSpecialFunc(processSpecialKeys);
 
 	// enter GLUT event processing cycle
 	glutMainLoop();
 }
 
-float angle = 0.0f;
+float xAngle = 0.0f;
+float yAngle = 0.0f;
 
 void renderScene() {
 
@@ -66,7 +69,8 @@ void renderScene() {
 		0.0f, 0.0f, -20.0f,
 		0.0f, 1.0f, 0.0f);
 
-	glRotatef(angle, 0.0f, 1.0f, 0.0f);
+	glRotatef(xAngle, 1.0f, 0.0f, 0.0f);
+	glRotatef(yAngle, 0.0f, 1.0f, 0.0f);
 
 	// Get triangles and paint them
 	Poligonizer poli;
@@ -103,8 +107,6 @@ void renderScene() {
 		}
 	}
 
-	angle += 0.2f;
-
 	glutSwapBuffers();
 }
 
@@ -121,5 +123,15 @@ void paintTriangle(TRIANGLE triangle)
 	glVertex3f(triangle.p[1].x - width / 2, triangle.p[1].y - height / 2, triangle.p[1].z - depth / 2);
 	glVertex3f(triangle.p[2].x - width / 2, triangle.p[2].y - height / 2, triangle.p[2].z - depth / 2);
 	glEnd();
+}
+
+void processSpecialKeys(int key, int x, int y) {
+
+	switch (key) {
+	case GLUT_KEY_LEFT: yAngle -= 1; break;
+	case GLUT_KEY_RIGHT: yAngle += 1; break;
+	case GLUT_KEY_UP: xAngle += 1; break;
+	case GLUT_KEY_DOWN: xAngle -= 1; break;
+	}
 }
 
