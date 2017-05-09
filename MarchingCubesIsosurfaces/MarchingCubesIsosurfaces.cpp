@@ -70,20 +70,20 @@ void renderScene() {
 				cell.p[0] = points[x][y][z];
 				cell.p[1] = points[x][y + 1][z];
 				cell.p[2] = points[x][y + 1][z + 1];
-				cell.p[3] = points[x][z][y + 1];
+				cell.p[3] = points[x][y][z + 1];
 				cell.p[4] = points[x + 1][y][z];
 				cell.p[5] = points[x + 1][y + 1][z];
 				cell.p[6] = points[x + 1][y + 1][z + 1];
-				cell.p[7] = points[x + 1][z][y + 1];
+				cell.p[7] = points[x + 1][y][z + 1];
 
 				cell.val[0] = values[x][y][z];
 				cell.val[1] = values[x][y + 1][z];
 				cell.val[2] = values[x][y + 1][z + 1];
-				cell.val[3] = values[x][z][y + 1];
+				cell.val[3] = values[x][y][z + 1];
 				cell.val[4] = values[x + 1][y][z];
 				cell.val[5] = values[x + 1][y + 1][z];
 				cell.val[6] = values[x + 1][y + 1][z + 1];
-				cell.val[7] = values[x + 1][z][y + 1];
+				cell.val[7] = values[x + 1][y][z + 1];
 
 				int amount = poli.Polygonize(cell, 0.5, triangles);
 
