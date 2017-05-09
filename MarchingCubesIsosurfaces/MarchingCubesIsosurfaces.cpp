@@ -12,6 +12,10 @@ using namespace std;
 void paintTriangle(TRIANGLE triangle);
 void renderScene();
 
+double width = 1;
+double height = 1;
+double depth = 1;
+double gridSize = 3;
 double values[3][3][3] = { { { 0, 0, 0 },{ 0, 1, 0 },{ 0, 0, 0 } },{ { 1, 1, 1 },{ 1, 1, 1 },{ 1, 1, 1 } },{ { 0, 0, 0 },{ 0, 1, 0 },{ 0, 0, 0 } } };
 //double values[3][3][3] = { { { 1, 1, 1 },{ 0, 0, 0 },{ 0, 0, 0 } },{ { 0, 0, 0 },{ 0, 0, 0 },{ 0, 0, 0 } },{ { 0, 0, 0 },{ 0, 0, 0 },{ 0, 0, 0 } } };
 XYZ points[3][3][3];
@@ -23,9 +27,9 @@ int main(int argc, char **argv)
 		for (int y = 0; y <= 2; y++) {
 			for (int z = 0; z <= 2; z++) {
 				XYZ p;
-				p.x = x / 4.0;
-				p.y = y / 4.0;
-				p.z = z / 4.0;
+				p.x = x * width / gridSize;
+				p.y = y * height / gridSize;
+				p.z = z * depth / gridSize;
 				points[x][y][z] = p;
 			}
 		}
@@ -103,9 +107,9 @@ void renderScene() {
 void paintTriangle(TRIANGLE triangle)
 {
 	glBegin(GL_TRIANGLES);
-	glVertex3f(triangle.p[0].x, triangle.p[0].y, triangle.p[0].z);
-	glVertex3f(triangle.p[1].x, triangle.p[1].y, triangle.p[1].z);
-	glVertex3f(triangle.p[2].x, triangle.p[2].y, triangle.p[2].z);
+	glVertex3f(triangle.p[0].x - width / 2, triangle.p[0].y - height / 2, triangle.p[0].z - depth / 2);
+	glVertex3f(triangle.p[1].x - width / 2, triangle.p[1].y - height / 2, triangle.p[1].z - depth / 2);
+	glVertex3f(triangle.p[2].x - width / 2, triangle.p[2].y - height / 2, triangle.p[2].z - depth / 2);
 	glEnd();
 }
 

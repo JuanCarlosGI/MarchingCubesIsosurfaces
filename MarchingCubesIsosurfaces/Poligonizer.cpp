@@ -1,3 +1,8 @@
+/*
+Algorithm based from http://paulbourke.net/geometry/polygonise/
+Credits go to Paul Broke, since the implementation in C was the base for out implementation.
+*/
+
 #include "Poligonizer.h"
 #include <math.h>
 
